@@ -1,0 +1,19 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend del proyecto final de rollingcodeschool comision 6i",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rafalobop/proyectofinal-rollingcodeschool.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rafalobop/proyectofinal-rollingcodeschool/issues"
+  },
+  "homepage": "https://github.com/rafalobop/proyectofinal-rollingcodeschool#readme"
+}
