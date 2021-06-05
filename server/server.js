@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const app = express();
 
 app.use(
@@ -27,5 +28,20 @@ app.put('/alumnos:id', function (req, res) {
 app.delete('/alumnos:id', function (req, res) {
   res.json('DELETE alumnos');
 });
+
+mongoose.connect(
+  'mongodb://localhost:27017/codeschool',
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: true,
+    useCreateIndex: true,
+  },
+  (err, res) => {
+    if (err) throw err;
+    console.log('Base de datos online');
+  }
+);
+
 app.listen(3000);
 console.log('escuchando en puerto 3000');
