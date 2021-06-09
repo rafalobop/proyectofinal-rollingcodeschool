@@ -75,7 +75,7 @@ app.put('/usuarios/:id', function (req, res) {
   });
 });
 
-//Ruta Delete
+
 app.delete("/usuarios/:id", function (req, res) {
   let id=req.params.id
   usuario.findByIdAndUpdate(id,
@@ -106,6 +106,5 @@ app.delete("/usuarios/:id", function (req, res) {
   
 
 });
-
 
 module.exports = app;
