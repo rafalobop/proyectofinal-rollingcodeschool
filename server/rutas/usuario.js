@@ -22,7 +22,7 @@ app.get('/usuarios', function (req, res) {
         });
       }
 
-      Usuario.count({}, (err, conteo) => {
+      Usuario.countDocuments({estado:true}, (err, conteo) => {
         res.json({
           ok: true,
           usuarios,
@@ -76,9 +76,13 @@ app.put('/usuarios/:id', function (req, res) {
 });
 
 
-app.delete("/usuarios/:id", function (req, res) {
+app.delete('/usuarios/:id', function (req, res) {
   let id=req.params.id
-  usuario.findByIdAndUpdate(id,
+  let estadoActualizado={
+    estado:false
+  }
+  Usuario.findByIdAndUpdate(
+      id,
       estadoActualizado,
       { new:true },
       (err, usuarioBorrado)=>{
@@ -102,7 +106,8 @@ app.delete("/usuarios/:id", function (req, res) {
           ok:true,
           usuario: usuarioBorrado,
       });
-  })
+  }
+  );
   
 
 });
