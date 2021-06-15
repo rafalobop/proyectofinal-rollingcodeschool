@@ -1,4 +1,5 @@
 const express = require('express');
+require('./config/config');
 const mongoose = require('mongoose');
 const app = express();
 
@@ -7,28 +8,7 @@ app.use(
     extended: true,
   })
 );
-
-app.get('/alumnos', function (req, res) {
-  res.json('GET alumnos');
-});
-
-app.post('/alumnos', function (req, res) {
-  //   req.json('POST alumnos');
-  let body = req.body;
-
-  res.json({
-    body,
-  });
-});
-
-app.put('/alumnos:id', function (req, res) {
-  res.json('PUT alumnos');
-});
-
-app.delete('/alumnos:id', function (req, res) {
-  res.json('DELETE alumnos');
-});
-
+app.use(require('./rutas/index'));
 mongoose.connect(
   'mongodb://localhost:27017/codeschool',
   {
@@ -43,5 +23,6 @@ mongoose.connect(
   }
 );
 
-app.listen(3000);
-console.log('escuchando en puerto 3000');
+app.listen(process.env.PORT, () => {
+  console.log('escuchando en puerto', process.env.PORT);
+});
