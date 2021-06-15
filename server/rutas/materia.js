@@ -22,7 +22,7 @@ app.get("/materia", function (req, res) {
     .limit(limite)
     .skip(desde)
     .sort("nombreMateria") 
-    .populate("descripcion", "ano")
+    .populate("descripcion", "anio")
     .exec((err, materias) => {
       if (err) {
         return res.status(400).json({
