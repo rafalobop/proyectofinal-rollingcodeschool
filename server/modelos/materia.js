@@ -34,4 +34,4 @@ materiaSchema.plugin(uniqueValidator, {
   message: "{PATH} debe ser único",
 });
 
-module.exports = mongoose.model("Materia", cursoSchema);
+module.exports = mongoose.model("Materia", materiaSchema);
