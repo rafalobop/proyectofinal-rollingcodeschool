@@ -22,7 +22,7 @@ app.get('/usuarios', function (req, res) {
         });
       }
 
-      Usuario.count({}, (err, conteo) => {
+      Usuario.countDocuments({estado:true}, (err, conteo) => {
         res.json({
           ok: true,
           usuarios,
@@ -88,6 +88,7 @@ app.delete('/usuarios/:id', function (req, res) {
           ok: false,
           err,
         });
+
       }
 
       if (!usuarioBorrado) {
@@ -102,6 +103,7 @@ app.delete('/usuarios/:id', function (req, res) {
         ok: true,
         usuario: usuarioBorrado,
       });
+
     }
   );
 });
