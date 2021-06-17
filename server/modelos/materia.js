@@ -15,8 +15,7 @@ let materiaSchema = new Schema({
   },
   imagen: {
     type: String,
-    default:
-      "https://www.galdon.com/wp-content/uploads/2013/05/profesion-informatica-galdon-software-1024x576.jpg",
+    required: false,
   },
   nota:{
     type: Number,

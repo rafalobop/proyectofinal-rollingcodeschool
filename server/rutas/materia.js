@@ -9,7 +9,7 @@ const {
 const _ = require('underscore');
 const app = express();
 
-app.get('/materia', function (req, res) {
+app.get('/materias', function (req, res) {
   // res.json("GET usuarios");
 
   let desde = req.query.desde || 0;
@@ -22,7 +22,6 @@ app.get('/materia', function (req, res) {
     .limit(limite)
     .skip(desde)
     .sort("nombreMateria") 
-    .populate("descripcion", "anio")
     .exec((err, materias) => {
       if (err) {
         return res.status(400).json({
@@ -41,7 +40,7 @@ app.get('/materia', function (req, res) {
     });
 });
 
-app.get('/materia/:id', function (req, res) {
+app.get('/materias/:id', function (req, res) {
   let id = req.params.id;
 
   Materia.findById(id).exec((err, materia) => {
@@ -59,7 +58,7 @@ app.get('/materia/:id', function (req, res) {
   });
 });
 
-app.post('/materia', [verificaToken, verificaAdminRole], function (req, res) {
+app.post('/materias', [verificaToken, verificaAdminRole], function (req, res) {
   let body = req.body;
 
   let materia = new Materia({
@@ -67,7 +66,7 @@ app.post('/materia', [verificaToken, verificaAdminRole], function (req, res) {
     detalle: body.detalle,
     imagen: body.imagen,
     nota: body.nota,
-    ano: body.ano,
+    anio: body.anio,
   });
 
   materia.save((err, materiaDB) => {
@@ -85,7 +84,7 @@ app.post('/materia', [verificaToken, verificaAdminRole], function (req, res) {
   });
 });
 app.put(
-  '/materia/:id',
+  '/materias/:id',
   [verificaToken, verificaAdminRole],
   function (req, res) {
     // res.json("PUT usuarios");
@@ -113,7 +112,7 @@ app.put(
 );
 
 app.delete(
-  '/materia/:id',
+  '/materias/:id',
   [verificaToken, verificaAdminRole],
   function (req, res) {
     let id = req.params.id;
