@@ -1,15 +1,15 @@
-const express = require("express");
-const Curso = require("../modelos/materia");
+const express = require('express');
+const Materia = require('../modelos/materia');
 
 const {
   verificaToken,
-  verificaAdmin_role,
-} = require("../middlewares/autenticacion");
+  verificaAdminRole,
+} = require('../middlewares/autenticacion');
 
-const _ = require("underscore");
+const _ = require('underscore');
 const app = express();
 
-app.get("/materia", function (req, res) {
+app.get('/materia', function (req, res) {
   // res.json("GET usuarios");
 
   let desde = req.query.desde || 0;
@@ -41,9 +41,7 @@ app.get("/materia", function (req, res) {
     });
 });
 
-app.get("/materias/:id", function (req, res) {
-  
-
+app.get('/materia/:id', function (req, res) {
   let id = req.params.id;
 
   Materia.findById(id).exec((err, materia) => {
@@ -61,19 +59,15 @@ app.get("/materias/:id", function (req, res) {
   });
 });
 
-app.post("/materias", [verificaToken, verificaAdmin_role], function (req, res) {
-
-
+app.post('/materia', [verificaToken, verificaAdminRole], function (req, res) {
   let body = req.body;
 
   let materia = new Materia({
-
     nombreMateria: body.nombreMateria,
     detalle: body.detalle,
     imagen: body.imagen,
     nota: body.nota,
     ano: body.ano,
-    
   });
 
   materia.save((err, materiaDB) => {
@@ -91,8 +85,8 @@ app.post("/materias", [verificaToken, verificaAdmin_role], function (req, res) {
   });
 });
 app.put(
-  "/materia/:id",
-  [verificaToken, verificaAdmin_role],
+  '/materia/:id',
+  [verificaToken, verificaAdminRole],
   function (req, res) {
     // res.json("PUT usuarios");
     let id = req.params.id;
@@ -119,8 +113,8 @@ app.put(
 );
 
 app.delete(
-  "/materia/:id",
-  [verificaToken, verificaAdmin_role],
+  '/materia/:id',
+  [verificaToken, verificaAdminRole],
   function (req, res) {
     let id = req.params.id;
 
@@ -144,7 +138,7 @@ app.delete(
           return res.status(400).json({
             ok: false,
             err: {
-              message: "Materia no encontrada",
+              message: 'Materia no encontrada',
             },
           });
         }

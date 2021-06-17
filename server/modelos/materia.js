@@ -22,7 +22,7 @@ let materiaSchema = new Schema({
     type: Number,
     required: [true, "La nota del alumno es necesaria"],
   },
-  ano:{
+  anio:{
       type: Number,
       require: true,
   },
