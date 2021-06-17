@@ -75,41 +75,37 @@ app.put('/usuarios/:id', function (req, res) {
   });
 });
 
-
+//Ruta Delete
 app.delete('/usuarios/:id', function (req, res) {
-  let id=req.params.id
-  let estadoActualizado={
-    estado:false
-  }
-  Usuario.findByIdAndUpdate(
-      id,
-      estadoActualizado,
-      { new:true },
-      (err, usuarioBorrado)=>{
-      if(err){
-          return res.status(400).json({
-              ok:false,
-              err,
-          });
+  let id = req.params.id;
+  usuario.findByIdAndUpdate(
+    id,
+    estadoActualizado,
+    { new: true },
+    (err, usuarioBorrado) => {
+      if (err) {
+        return res.status(400).json({
+          ok: false,
+          err,
+        });
+
       }
 
-      if(!usuarioBorrado){
-          return res.status(400).json({
-              ok:false,
-              err:{
-                  message: "Usuario no encontrado.",
-              },
-
-          });
+      if (!usuarioBorrado) {
+        return res.status(400).json({
+          ok: false,
+          err: {
+            message: 'Usuario no encontrado.',
+          },
+        });
       }
       res.json({
-          ok:true,
-          usuario: usuarioBorrado,
+        ok: true,
+        usuario: usuarioBorrado,
       });
-  }
-  );
-  
 
+    }
+  );
 });
 
 module.exports = app;

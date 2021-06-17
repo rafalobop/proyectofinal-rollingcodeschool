@@ -8,8 +8,7 @@ app.use(
     extended: true,
   })
 );
-
-app.use(require('./rutas/usuario'));
+app.use(require('./rutas/index'));
 mongoose.connect(
   'mongodb://localhost:27017/codeschool',
   {
