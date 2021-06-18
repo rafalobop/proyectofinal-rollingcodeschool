@@ -6,7 +6,6 @@ let Schema = mongoose.Schema;
 let materiaSchema = new Schema({
   nombreMateria: {
     type: String,
-
     required: [true, "El nombre de la Materia es necesario"],
   },
   detalle: {
@@ -18,14 +17,17 @@ let materiaSchema = new Schema({
     required: false,
   },
   nota:{
-    type: Number,
+    type: String,
     required: [true, "La nota del alumno es necesaria"],
   },
   anio:{
-      type: Number,
+      type: String,
       require: true,
   },
-
+  alumno: {
+    type: Schema.Types.ObjectId,
+    ref: "Alumno",
+  },
  
 });
 
