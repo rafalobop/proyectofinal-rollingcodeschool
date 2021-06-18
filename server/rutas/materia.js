@@ -9,21 +9,21 @@ const {
 const _ = require('underscore');
 const app = express();
 
-app.get('/materia', function (req, res) {
-  // res.json("GET usuarios");
+app.get('/materias', verificaToken, function (req, res) {
+  
 
   let desde = req.query.desde || 0;
   desde = Number(desde);
 
-  let limite = req.query.limite || 5;
+  let limite = req.query.limite || 10;
   limite = Number(limite);
 
   Materia.find({ estado: true })
     .limit(limite)
     .skip(desde)
     .sort('nombreMateria')
-    .populate('descripcion', 'ano')
-    .exec((err, materias) => {
+    .populate('alumno','nombreCompleto año')
+    .exec((err, materia) => {
       if (err) {
         return res.status(400).json({
           ok: false,
@@ -34,14 +34,14 @@ app.get('/materia', function (req, res) {
       Materia.countDocuments({ estado: true }, (err, conteo) => {
         res.json({
           ok: true,
-          materias,
+          materia,
           cantidad: conteo,
         });
       });
     });
 });
 
-app.get('/materia/:id', function (req, res) {
+app.get('/materias/:id', verificaToken, function (req, res) {
   let id = req.params.id;
 
   Materia.findById(id).exec((err, materia) => {
@@ -59,15 +59,16 @@ app.get('/materia/:id', function (req, res) {
   });
 });
 
-app.post('/materia', [verificaToken, verificaAdminRole], function (req, res) {
+app.post('/materias', [verificaToken, verificaAdminRole], function (req, res) {
   let body = req.body;
 
   let materia = new Materia({
     nombreMateria: body.nombreMateria,
     detalle: body.detalle,
     imagen: body.imagen,
-    nota: body.nota,
-    ano: body.ano,
+    estado: body.estado,
+    alumno: req.alumno._id
+    
   });
 
   materia.save((err, materiaDB) => {
@@ -85,10 +86,10 @@ app.post('/materia', [verificaToken, verificaAdminRole], function (req, res) {
   });
 });
 app.put(
-  '/materia/:id',
+  '/materias/:id',
   [verificaToken, verificaAdminRole],
   function (req, res) {
-    // res.json("PUT usuarios");
+    
     let id = req.params.id;
     let body = req.body;
 
@@ -113,7 +114,7 @@ app.put(
 );
 
 app.delete(
-  '/materia/:id',
+  '/materias/:id',
   [verificaToken, verificaAdminRole],
   function (req, res) {
     let id = req.params.id;

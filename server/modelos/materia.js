@@ -6,8 +6,8 @@ let Schema = mongoose.Schema;
 let materiaSchema = new Schema({
   nombreMateria: {
     type: String,
-
     required: [true, 'El nombre de la Materia es necesario'],
+    unique: true,
   },
   detalle: {
     type: String,
@@ -15,21 +15,21 @@ let materiaSchema = new Schema({
   },
   imagen: {
     type: String,
-    default:
-      'https://www.galdon.com/wp-content/uploads/2013/05/profesion-informatica-galdon-software-1024x576.jpg',
+    required: false,
   },
-  nota: {
-    type: Number,
-    required: [true, 'La nota del alumno es necesaria'],
+  estado: {
+    type: Boolean,
+    required: true,
   },
-  ano: {
-    type: Number,
-    require: true,
+  alumno: {
+    type: Schema.Types.ObjectId,
+    ref: "Alumno",
   },
+
 });
 
 materiaSchema.plugin(uniqueValidator, {
-  message: '{PATH} debe ser único',
+  message: '{PATH} La materia debe ser única',
 });
 
 module.exports = mongoose.model('Materia', materiaSchema);
