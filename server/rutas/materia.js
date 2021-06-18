@@ -65,9 +65,10 @@ app.post('/materias', [verificaToken, verificaAdminRole], function (req, res) {
   let materia = new Materia({
     nombreMateria: body.nombreMateria,
     detalle: body.detalle,
+    anio: body.anio,
     imagen: body.imagen,
     estado: body.estado,
-    alumno: req.alumno._id
+    //alumno: req.alumno.id
     
   });
 

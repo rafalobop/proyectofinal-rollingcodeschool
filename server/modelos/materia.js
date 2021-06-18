@@ -13,13 +13,17 @@ let materiaSchema = new Schema({
     type: String,
     required: true,
   },
+  anio: {
+    type: String,
+    required: true,
+  },
   imagen: {
     type: String,
     required: false,
   },
   estado: {
     type: Boolean,
-    required: true,
+    default: true,
   },
   alumno: {
     type: Schema.Types.ObjectId,
