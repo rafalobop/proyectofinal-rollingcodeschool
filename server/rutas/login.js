@@ -1,16 +1,15 @@
-  
-const express = require("express");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+const express = require('express');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
-const Usuario = require("../modelos/usuario");
+const Usuario = require('../modelos/usuario');
 const app = express();
 
-app.post("/login", (req, res) => {
+app.post('/login', (req, res) => {
   let body = req.body;
   Usuario.findOne({ email: body.email }, (err, usuarioDB) => {
     if (err) {
-      return res.status(500).json({
+      return res.status(400).json({
         ok: false,
         err,
       });
@@ -21,7 +20,7 @@ app.post("/login", (req, res) => {
       return res.status(400).json({
         ok: false,
         err: {
-          message: "Usuario o contraseña incorrectos",
+          message: 'Usuario o contraseña incorrectos',
         },
       });
     }
@@ -31,7 +30,7 @@ app.post("/login", (req, res) => {
       return res.status(400).json({
         ok: false,
         err: {
-          message: "Usuario o contraseña incorrectos",
+          message: 'Usuario o contraseña incorrectos',
         },
       });
     }
@@ -46,7 +45,7 @@ app.post("/login", (req, res) => {
       usuario: usuarioDB,
       token: token,
     });
-  // 
-});
+    //
+  });
 });
 module.exports = app;
