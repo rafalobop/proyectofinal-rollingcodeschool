@@ -9,7 +9,7 @@ const {
 const _ = require('underscore');
 const app = express();
 
-app.get('/alumnos', verificaToken, function (req, res) {
+app.get('/alumnos', [verificaToken, verificaAdminRole], function (req, res) {
   //   res.json('GET alumnos');
 
   let desde = req.query.desde || 0;
