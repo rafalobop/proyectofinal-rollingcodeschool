@@ -14,6 +14,30 @@ let usuarioSchema = new Schema({
     type: String,
     required: [true, 'El nombre es necesario'],
   },
+  apellido: {
+    type: String,
+    required: [true, 'El apellido es necesario'],
+  },
+  fechaIngreso: {
+    type: String,
+    required: [true, 'Fecha de ingreso es necesaria'],
+  },
+  contacto: {
+    type: Number,
+    required: [true, 'El numero de telefono es necesario'],
+  },
+  nombreInstit: {
+    type: String,
+    default: 'Codeschool',
+  },
+  contactoInstit: {
+    type: String,
+    required: [true, 'El contacto de la institucion es necesario'],
+  },
+  direccion: {
+    type: String,
+    required: [true, 'La direccion es necesaria'],
+  },
 
   email: {
     type: String,
@@ -30,7 +54,7 @@ let usuarioSchema = new Schema({
   },
   role: {
     type: String,
-    default: 'USER_ROLE',
+    default: 'ADMIN_ROLE',
     enum: rolesValidos,
   },
   estado: {

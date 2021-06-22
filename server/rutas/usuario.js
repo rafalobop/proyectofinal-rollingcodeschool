@@ -22,7 +22,7 @@ app.get('/usuarios', function (req, res) {
         });
       }
 
-      Usuario.countDocuments({estado:true}, (err, conteo) => {
+      Usuario.countDocuments({ estado: true }, (err, conteo) => {
         res.json({
           ok: true,
           usuarios,
@@ -37,6 +37,12 @@ app.post('/usuarios', function (req, res) {
   let body = req.body;
   let usuario = new Usuario({
     nombre: body.nombre,
+    apellido: body.apellido,
+    fechaIngreso: body.fechaIngreso,
+    contacto: body.contacto,
+    nombreInstit: body.nombreInstit,
+    contactoInstit: body.contactoInstit,
+    direccion: body.direccion,
     email: body.email,
     password: bcrypt.hashSync(body.password, 10),
     role: body.role,
@@ -57,7 +63,16 @@ app.post('/usuarios', function (req, res) {
 
 app.put('/usuarios/:id', function (req, res) {
   // res.json('PUT usuario');
-  let body = _.pick(req.body, ['nombre', 'img', 'role', 'estado']);
+  let body = _.pick(req.body, [
+    'nombre',
+    'apellido',
+    'fechaIngreso',
+    'contacto',
+    'contactoInstit',
+    'direccion',
+    'img',
+    'estado',
+  ]);
   let id = req.params.id;
 
   Usuario.findByIdAndUpdate(id, body, { new: true }, (err, usuarioDB) => {
@@ -88,7 +103,6 @@ app.delete('/usuarios/:id', function (req, res) {
           ok: false,
           err,
         });
-
       }
 
       if (!usuarioBorrado) {
@@ -103,7 +117,6 @@ app.delete('/usuarios/:id', function (req, res) {
         ok: true,
         usuario: usuarioBorrado,
       });
-
     }
   );
 });
