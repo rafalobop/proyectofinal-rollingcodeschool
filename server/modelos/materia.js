@@ -19,13 +19,12 @@ let materiaSchema = new Schema({
   },
   estado: {
     type: Boolean,
-    required: true,
+    default: true,
   },
-  alumno: {
-    type: Schema.Types.ObjectId,
-    ref: "Alumno",
-  },
-
+  // alumno: {
+  //   type: Schema.Types.ObjectId,
+  //   ref: 'Alumno',
+  // },
 });
 
 materiaSchema.plugin(uniqueValidator, {

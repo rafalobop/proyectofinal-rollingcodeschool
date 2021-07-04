@@ -9,9 +9,7 @@ const {
 const _ = require('underscore');
 const app = express();
 
-app.get('/materias', verificaToken, function (req, res) {
-  
-
+app.get('/materias', function (req, res) {
   let desde = req.query.desde || 0;
   desde = Number(desde);
 
@@ -22,7 +20,7 @@ app.get('/materias', verificaToken, function (req, res) {
     .limit(limite)
     .skip(desde)
     .sort('nombreMateria')
-    .populate('alumno','nombreCompleto año')
+    .populate('alumno', 'nombreCompleto año')
     .exec((err, materia) => {
       if (err) {
         return res.status(400).json({
@@ -41,7 +39,7 @@ app.get('/materias', verificaToken, function (req, res) {
     });
 });
 
-app.get('/materias/:id', verificaToken, function (req, res) {
+app.get('/materias/:id', function (req, res) {
   let id = req.params.id;
 
   Materia.findById(id).exec((err, materia) => {
@@ -67,8 +65,7 @@ app.post('/materias', [verificaToken, verificaAdminRole], function (req, res) {
     detalle: body.detalle,
     imagen: body.imagen,
     estado: body.estado,
-    alumno: req.alumno._id
-    
+    // alumno: req.alumno._id,
   });
 
   materia.save((err, materiaDB) => {
@@ -89,7 +86,6 @@ app.put(
   '/materias/:id',
   [verificaToken, verificaAdminRole],
   function (req, res) {
-    
     let id = req.params.id;
     let body = req.body;
 
