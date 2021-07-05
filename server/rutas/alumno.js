@@ -22,7 +22,7 @@ app.get('/alumnos', verificaToken, function (req, res) {
     .limit(limite)
     .skip(desde)
     .sort('expediente')
-    .exec((err, alumno) => {
+    .exec((err, alumnos) => {
       if (err) {
         return res.status(400).json({
           ok: false,
@@ -32,7 +32,7 @@ app.get('/alumnos', verificaToken, function (req, res) {
       Alumno.countDocuments({ estado: true }, (err, conteo) => {
         res.json({
           ok: true,
-          alumno,
+          alumnos,
           cantidad: conteo,
         });
       });
@@ -55,14 +55,14 @@ app.get('/alumnos/:id', verificaToken, function (req, res) {
     });
   });
 });
-app.post('/alumnos', [verificaToken, verificaAdminRole], function (req, res) {
+app.post('/alumnos',  function (req, res) {
   let body = req.body;
 
   let alumno = new Alumno({
     nombreCompleto: body.nombreCompleto,
     año: body.año,
     expediente: body.expediente,
-    cuota: body.cuota,
+    
   });
   alumno.save((err, alumnoDB) => {
     if (err) {

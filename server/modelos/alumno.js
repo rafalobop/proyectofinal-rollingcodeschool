@@ -16,10 +16,7 @@ let alumnoSchema = new Schema({
     required: [true, 'El numero de expediente es necesario'],
     unique: true,
   },
-  cuota: {
-    type: Boolean,
-    required: [true, 'Necesario saber si abonó'],
-  },
+  
   estado: {
     type: Boolean,
     default: true,
