@@ -57,7 +57,7 @@ app.get('/materias/:id', function (req, res) {
   });
 });
 
-app.post('/materias', [verificaToken, verificaAdminRole], function (req, res) {
+app.post('/materias', function (req, res) {
   let body = req.body;
 
   let materia = new Materia({
@@ -84,7 +84,7 @@ app.post('/materias', [verificaToken, verificaAdminRole], function (req, res) {
 });
 app.put(
   '/materias/:id',
-  [verificaToken, verificaAdminRole],
+  /*[verificaToken, verificaAdminRole]*/
   function (req, res) {
     let id = req.params.id;
     let body = req.body;
@@ -92,7 +92,7 @@ app.put(
     Materia.findByIdAndUpdate(
       id,
       body,
-      { new: true, runValidators: true },
+      { new: true, runValidators: true, context: 'query' },
       (err, materiaDB) => {
         if (err) {
           return res.status(400).json({
@@ -111,7 +111,7 @@ app.put(
 
 app.delete(
   '/materias/:id',
-  [verificaToken, verificaAdminRole],
+
   function (req, res) {
     let id = req.params.id;
 
