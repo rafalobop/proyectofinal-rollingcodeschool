@@ -7,7 +7,7 @@ let alumnoSchema = new Schema({
     type: String,
     required: [true, 'El nombre y apellido del alumno son requeridos'],
   },
-  año: {
+  year: {
     type: String,
     required: [true, 'El año de cursado es requerido'],
   },
