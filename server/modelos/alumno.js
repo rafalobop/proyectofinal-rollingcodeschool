@@ -7,6 +7,14 @@ let alumnoSchema = new Schema({
     type: String,
     required: [true, 'El nombre y apellido del alumno son requeridos'],
   },
+  domicilio: {
+    type: String,
+    required: [true, 'Debe ingresar el domicilio  del alumno'],
+  },
+  contacto: {
+    type: String,
+    required: [true, 'El numero de contacto es necesario'],
+  },
   year: {
     type: String,
     required: [true, 'El año de cursado es requerido'],

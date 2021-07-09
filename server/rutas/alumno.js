@@ -68,6 +68,8 @@ app.post(
 
     let alumno = new Alumno({
       nombreCompleto: body.nombreCompleto,
+      domicilio: body.domicilio,
+      contacto: body.contacto,
       year: body.year,
       expediente: body.expediente,
       cuota: body.cuota,
