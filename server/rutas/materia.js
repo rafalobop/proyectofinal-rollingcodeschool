@@ -39,23 +39,27 @@ app.get('/materias', function (req, res) {
     });
 });
 
-app.get('/materias/:id', function (req, res) {
-  let id = req.params.id;
+app.get(
+  '/materias/:id',
 
-  Materia.findById(id).exec((err, materia) => {
-    if (err) {
-      return res.status(400).json({
-        ok: false,
-        err,
+  function (req, res) {
+    let id = req.params.id;
+
+    Materia.findById(id).exec((err, materia) => {
+      if (err) {
+        return res.status(400).json({
+          ok: false,
+          err,
+        });
+      }
+
+      res.json({
+        ok: true,
+        materia,
       });
-    }
-
-    res.json({
-      ok: true,
-      materia,
     });
-  });
-});
+  }
+);
 
 app.post('/materias', function (req, res) {
   let body = req.body;
@@ -82,32 +86,28 @@ app.post('/materias', function (req, res) {
     });
   });
 });
-app.put(
-  '/materias/:id',
-  /*[verificaToken, verificaAdminRole]*/
-  function (req, res) {
-    let id = req.params.id;
-    let body = req.body;
+app.put('/materias/:id', function (req, res) {
+  let id = req.params.id;
+  let body = req.body;
 
-    Materia.findByIdAndUpdate(
-      id,
-      body,
-      { new: true, runValidators: true, context: 'query' },
-      (err, materiaDB) => {
-        if (err) {
-          return res.status(400).json({
-            ok: false,
-            err,
-          });
-        }
-        res.json({
-          ok: true,
-          materia: materiaDB,
+  Materia.findByIdAndUpdate(
+    id,
+    body,
+    { new: true, runValidators: true, context: 'query' },
+    (err, materiaDB) => {
+      if (err) {
+        return res.status(400).json({
+          ok: false,
+          err,
         });
       }
-    );
-  }
-);
+      res.json({
+        ok: true,
+        materia: materiaDB,
+      });
+    }
+  );
+});
 
 app.delete(
   '/materias/:id',

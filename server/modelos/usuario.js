@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 
-//aqui definimos, haciendo referencia a base de datos de mysql) las tablas de nuestro back
+//aqui definimos, haciendo referencia a base de datos las tablas de nuestro back
 let rolesValidos = {
   values: ['ADMIN_ROLE', 'USER_ROLE'],
   message: '{VALUE} no es un rol valido',
@@ -54,7 +54,7 @@ let usuarioSchema = new Schema({
   },
   role: {
     type: String,
-    default: 'ADMIN_ROLE',
+    default: 'USER_ROLE',
     enum: rolesValidos,
   },
   estado: {

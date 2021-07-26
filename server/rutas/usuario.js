@@ -8,6 +8,7 @@ const {
   verificaToken,
   verificaAdminRole,
 } = require('../middlewares/autenticacion');
+
 const app = express();
 
 app.get('/usuarios', function (req, res) {
@@ -119,6 +120,9 @@ app.put('/usuarios/:id', function (req, res) {
 //Ruta Delete
 app.delete('/usuarios/:id', function (req, res) {
   let id = req.params.id;
+  let estadoActualizado = {
+    estado: false,
+  };
   usuario.findByIdAndUpdate(
     id,
     estadoActualizado,
