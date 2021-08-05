@@ -9,9 +9,7 @@ const {
 const _ = require('underscore');
 const app = express();
 
-app.get('/materias', verificaToken, function (req, res) {
-  
-
+app.get('/materias', function (req, res) {
   let desde = req.query.desde || 0;
   desde = Number(desde);
 
@@ -22,7 +20,7 @@ app.get('/materias', verificaToken, function (req, res) {
     .limit(limite)
     .skip(desde)
     .sort('nombreMateria')
-    .populate('alumno','nombreCompleto año')
+    .populate('alumno', 'nombreCompleto año')
     .exec((err, materia) => {
       if (err) {
         return res.status(400).json({
@@ -41,7 +39,7 @@ app.get('/materias', verificaToken, function (req, res) {
     });
 });
 
-app.get('/materias/:id', verificaToken, function (req, res) {
+app.get('/materias/:id', function (req, res) {
   let id = req.params.id;
 
   Materia.findById(id).exec((err, materia) => {
@@ -59,16 +57,13 @@ app.get('/materias/:id', verificaToken, function (req, res) {
   });
 });
 
-app.post('/materias', [verificaToken, verificaAdminRole], function (req, res) {
+app.post('/materias', function (req, res) {
   let body = req.body;
 
   let materia = new Materia({
     nombreMateria: body.nombreMateria,
-    detalle: body.detalle,
-    imagen: body.imagen,
-    estado: body.estado,
-    alumno: req.alumno._id
-    
+    nota: body.nota,
+    alumno: req.alumno._id,
   });
 
   materia.save((err, materiaDB) => {
@@ -87,16 +82,15 @@ app.post('/materias', [verificaToken, verificaAdminRole], function (req, res) {
 });
 app.put(
   '/materias/:id',
-  [verificaToken, verificaAdminRole],
+  /*[verificaToken, verificaAdminRole]*/
   function (req, res) {
-    
     let id = req.params.id;
     let body = req.body;
 
     Materia.findByIdAndUpdate(
       id,
       body,
-      { new: true, runValidators: true },
+      { new: true, runValidators: true, context: 'query' },
       (err, materiaDB) => {
         if (err) {
           return res.status(400).json({
@@ -115,7 +109,7 @@ app.put(
 
 app.delete(
   '/materias/:id',
-  [verificaToken, verificaAdminRole],
+
   function (req, res) {
     let id = req.params.id;
 

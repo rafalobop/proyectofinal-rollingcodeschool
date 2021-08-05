@@ -3,6 +3,11 @@ const bcrypt = require('bcrypt');
 const _ = require('underscore');
 
 const Usuario = require('../modelos/usuario');
+
+const {
+  verificaToken,
+  verificaAdminRole,
+} = require('../middlewares/autenticacion');
 const app = express();
 
 app.get('/usuarios', function (req, res) {
@@ -31,6 +36,27 @@ app.get('/usuarios', function (req, res) {
       });
     });
 });
+app.get(
+  '/usuarios/:id',
+  [verificaToken, verificaAdminRole],
+  function (req, res) {
+    let id = req.params.id;
+    // res.json("GET usuarios");
+    Usuario.findById(id).exec((err, usuario) => {
+      if (err) {
+        return res.status(400).json({
+          ok: false,
+          err,
+        });
+      }
+
+      res.json({
+        ok: true,
+        usuario,
+      });
+    });
+  }
+);
 
 app.post('/usuarios', function (req, res) {
   //   req.json('POST usuario');
